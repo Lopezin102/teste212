@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        body {
+            background-color: #FFA500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #calculator {
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Centraliza o conteúdo */
+        }
+
+        input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+            text-align: right; /* Alinha o texto à direita */
+            margin: 10 auto; /* Centraliza a tela onde os números aparecem */
+        }
+
+        button {
+            width: 48px;
+            height: 48px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #000;
+        }
+
+        button:hover {
+            background-color: #ddd;
+        }
+
+
+        .back-button {
+        position: fixed;
+        left: 50px;
+        top: 50px; /* Ajuste a distância do topo conforme necessário */
+        padding: 15px 20px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    
+        button.operator {
+            background-color: #FFA500;
+            color: #000;
+            border: 1px solid #FFA500;
+        }
+
+        button.operator:hover {
+            background-color: #e08a00;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <input id="display" type="text" readonly>
+        <br>
+        <button onclick="appendNumber('7')">7</button>
+        <button onclick="appendNumber('8')">8</button>
+        <button onclick="appendNumber('9')">9</button>
+        <button class="operator" onclick="setOperator('/')">/</button>
+        <br>
+        <button onclick="appendNumber('4')">4</button>
+        <button onclick="appendNumber('5')">5</button>
+        <button onclick="appendNumber('6')">6</button>
+        <button class="operator" onclick="setOperator('*')">*</button>
+        <br>
+        <button onclick="appendNumber('1')">1</button>
+        <button onclick="appendNumber('2')">2</button>
+        <button onclick="appendNumber('3')">3</button>
+        <button class="operator" onclick="setOperator('-')">-</button>
+        <br>
+        <button onclick="appendNumber('0')">0</button>
+        <button onclick="appendDecimal()">.</button>
+        <button class="operator" onclick="calculate()">=</button>
+        <button class="operator" onclick="setOperator('+')">+</button>
+        <br>
+        <button class="operator" onclick="clearDisplay()">C</button>
+    </div>
+
+    <script>
+        let currentInput = '';
+        let operator = '';
+        let firstOperand = '';
+
+        function updateDisplay() {
+            document.getElementById('display').value = currentInput || '0';
+        }
+
+        function appendNumber(number) {
+            currentInput += number;
+            updateDisplay();
+        }
+
+        function appendDecimal() {
+            if (!currentInput.includes('.')) {
+                currentInput += '.';
+                updateDisplay();
+            }
+        }
+
+        function setOperator(op) {
+            if (currentInput !== '') {
+                operator = op;
+                firstOperand = currentInput;
+                currentInput = '';
+            }
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            operator = '';
+            firstOperand = '';
+            updateDisplay();
+        }
+
+        function calculate() {
+            if (currentInput !== '' && firstOperand !== '' && operator !== '') {
+                switch (operator) {
+                    case '+':
+                        currentInput = String(Number(firstOperand) + Number(currentInput));
+                        break;
+                    case '-':
+                        currentInput = String(Number(firstOperand) - Number(currentInput));
+                        break;
+                    case '*':
+                        currentInput = String(Number(firstOperand) * Number(currentInput));
+                        break;
+                    case '/':
+                        currentInput = String(Number(firstOperand) / Number(currentInput));
+                        break;
+                    default:
+                        break;
+                }
+                operator = '';
+                firstOperand = '';
+                updateDisplay();
+            }
+        }
+    </script>
+
+
+
+<button class="back-button" onclick="goBack()">Voltar</button>
+
+<script>
+    function goBack() {
+        history.back();
+    }
+</script>
+
+
+
+</body>
+</html>

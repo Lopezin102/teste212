@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reprodutor de Áudio Local</title>
+    <style>
+        body {
+            background-color: #FFA500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #player {
+            text-align: center;
+            color: #fff;
+        }
+
+        input {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        audio {
+            width: 300px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #fff;
+            color: #000;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ddd;
+        }
+        .back-button {
+            position: fixed;
+            left: 50px;
+            top: 50px; /* Ajuste a distância do topo conforme necessário */
+            padding: 15px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="player">
+        <h1>Reprodutor de Áudio Local</h1>
+        <input type="file" accept="audio/*" id="audioFile" onchange="loadAudio()">
+        <br>
+        <button onclick="removeAudio()">Remover Áudio</button>
+        <br>
+        <audio controls id="audioPlayer">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+    </div>
+
+    <script>
+        function loadAudio() {
+            const audioFileInput = document.getElementById('audioFile');
+            const audioPlayer = document.getElementById('audioPlayer');
+            
+            const file = audioFileInput.files[0];
+
+            if (file) {
+                const objectURL = URL.createObjectURL(file);
+                audioPlayer.src = objectURL;
+                audioPlayer.play();
+            }
+        }
+
+        function removeAudio() {
+            const audioFileInput = document.getElementById('audioFile');
+            const audioPlayer = document.getElementById('audioPlayer');
+
+            audioFileInput.value = null;
+            audioPlayer.src = '';
+        }
+    </script>
+
+
+
+<button class="back-button" onclick="goBack()">Voltar</button>
+
+<script>
+    function goBack() {
+        history.back();
+    }
+</script>   
+
+
+</body>
+</html>

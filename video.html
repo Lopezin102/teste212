@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reprodutor de Vídeo do YouTube</title>
+    <style>
+        body {
+            background-color: #FFA500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #fff;
+        }
+
+        label {
+            color: #fff;
+            margin-right: 10px;
+        }
+
+        input {
+            width: 300px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            border: 2px solid #000;
+            background-color: #FFA500;
+            color: #fff;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #FF8C00;
+        }
+
+        #player {
+            margin-top: 20px;
+        }
+
+        .back-button {
+            position: fixed;
+            left: 50px;
+            top: 50px; /* Ajuste a distância do topo conforme necessário */
+            padding: 15px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Reprodutor de Vídeo do YouTube</h1>
+
+    <label for="youtubeLink">Insira o link do YouTube:</label>
+    <input type="text" id="youtubeLink">
+    <button onclick="reproduzirVideo()">Reproduzir</button>
+    <button onclick="limparCampo()">Limpar</button>
+
+    <div id="player"></div>
+
+    <script>
+        function reproduzirVideo() {
+            const linkInput = document.getElementById('youtubeLink');
+            const videoId = extrairVideoId(linkInput.value);
+
+            if (videoId) {
+                const playerDiv = document.getElementById('player');
+                playerDiv.innerHTML = `<iframe width="640" height="360" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+            } else {
+                alert('Por favor, insira um link válido do YouTube.');
+            }
+        }
+
+        function extrairVideoId(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+
+            return match ? match[1] : null;
+        }
+
+        function limparCampo() {
+            document.getElementById('youtubeLink').value = '';
+        }
+    </script>
+
+
+<button class="back-button" onclick="goBack()">Voltar</button>
+
+<script>
+    function goBack() {
+        history.back();
+    }
+</script>   
+
+
+
+
+
+
+
+
+
+</body>
+</html>

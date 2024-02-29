@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: orange;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .clock {
+            color: #fff;
+            font-size: 5em; /* Tamanho dos números aumentado */
+            text-align: center;
+            border: 5px solid black; /* Adiciona borda preta */
+            padding: 20px; /* Adiciona espaço interno para a borda */
+            border-radius: 10px; /* Borda arredondada */
+        }
+    </style>
+    <title>Relógio Digital</title>
+</head>
+<body>
+    <div class="clock" id="clockDisplay"></div>
+
+    <script>
+        function updateClock() {
+            const brtTimeZone = 'America/Sao_Paulo'; // Fuso horário de Brasília
+            const now = new Date();
+            const brtTime = new Date(now.toLocaleString('en-US', { timeZone: brtTimeZone }));
+
+            const hours = brtTime.getHours().toString().padStart(2, '0');
+            const minutes = brtTime.getMinutes().toString().padStart(2, '0');
+            const seconds = brtTime.getSeconds().toString().padStart(2, '0');
+
+            const clockDisplay = document.getElementById('clockDisplay');
+            clockDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+
+            setTimeout(updateClock, 1000); // Atualiza a cada segundo
+        }
+
+        // Iniciar o relógio ao carregar a página
+        window.onload = function () {
+            updateClock();
+        };
+    </script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: orange;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .back-button {
+        position: fixed;
+        left: 50px;
+        top: 50px; /* Ajuste a distância do topo conforme necessário */
+        padding: 15px 20px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+<title>Voltar Página</title>
+</head>
+<body>
+<button class="back-button" onclick="goBack()">Voltar</button>
+
+<script>
+    function goBack() {
+        history.back();
+    }
+</script>
+</body>
+</html>
